@@ -1,0 +1,10 @@
+{
+    "LOGINKREDENSIALINVALID":{
+        "username": "standard1",
+        "password": "user1"
+    },
+    "LOGINUSERLOCKED":{
+        "username": "locked_out_user2",
+        "password": "secret_sauce"
+    }
+}
