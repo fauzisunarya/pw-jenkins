@@ -1,35 +1,27 @@
 pipeline {
-    agent {
-        dockerContainer {
-            image 'mcr.microsoft.com/playwright:v1.50.1-noble'
-            args '--entrypoint=""'  // Mencegah masalah entrypoint default di dalam container
-        }
-    }
+    agent any  // Menjalankan di agent mana saja yang tersedia
 
     stages {
-        stage('Retrieve .env') {
+        stage('Run in Docker') {
             steps {
-                withCredentials([file(credentialsId: 'pw', variable: 'ENV_FILE')]) {
-                    sh 'cp $ENV_FILE .env'
+                script {
+                    docker.image('mcr.microsoft.com/playwright:v1.50.1-noble').inside {
+                        
+                        // Retrieve .env file from Jenkins credentials
+                        withCredentials([file(credentialsId: 'pw', variable: 'ENV_FILE')]) {
+                            sh 'cp $ENV_FILE .env'
+                        }
+
+                        // Install dependencies
+                        sh 'npm ci'
+
+                        // Load environment variables
+                        sh 'export $(grep -v "^#" .env | xargs)'
+
+                        // Run Playwright tests
+                        sh 'npx playwright test'
+                    }
                 }
-            }
-        }
-
-        stage('Install dependencies') {
-            steps {
-                sh 'npm ci'
-            }
-        }
-
-        stage('Load Environment Variables') {
-            steps {
-                sh 'export $(grep -v "^#" .env | xargs)'
-            }
-        }
-
-        stage('Run Playwright Tests') {
-            steps {
-                sh 'npx playwright test'
             }
         }
     }
