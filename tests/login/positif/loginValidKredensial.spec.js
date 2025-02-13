@@ -20,7 +20,7 @@ test('Login menggunakan kredensial valid', async ({browserName,page},testInfo)=>
             value: browserName,
         }
         ]);
-    // let testData = dataDev;
+    // let testData = dataDev;a
     // if(process.env.ENV == 'qa'){
     //     testData = dataQa;
     // }
