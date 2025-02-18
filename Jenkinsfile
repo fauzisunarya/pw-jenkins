@@ -8,7 +8,9 @@ pipeline {
                         copy /y "%ENV_FILE%" .env
                         type .env
                         npm ci
-                        npx playwright test
+                        npx playwright --version  // Memverifikasi versi Playwright
+                        npx playwright test --list  // Menampilkan daftar tes
+                        npx playwright test  // Menjalankan tes
                     '''
                 }
             }
