@@ -1,5 +1,10 @@
 pipeline {
-   agent { docker { image 'mcr.microsoft.com/playwright:v1.50.1-noble' } }
+   agent { 
+      docker { 
+         image 'mcr.microsoft.com/playwright:v1.50.1-noble'
+         rgs '-w //c/ProgramData/Jenkins/.jenkins/workspace/pw/' 
+      } 
+   }
     stages {
         stage('Run Playwright Test') {
             steps {
