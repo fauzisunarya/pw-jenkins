@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     stages {
         stage('Run Playwright Test') {
             steps {
