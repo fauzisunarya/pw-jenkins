@@ -4,11 +4,11 @@ pipeline {
         stage('Run Playwright Test') {
             steps {
                 withCredentials([file(credentialsId: 'pw', variable: 'ENV_FILE')]) {
-                        bat 'cp $ENV_FILE .env'
-                        bat 'echo $ENV_FILE'
-                        bat 'npm ci'
-                        bat 'npx playwright test'
-                    
+                    bat '''
+                        copy /y "%ENV_FILE%" .env
+                        npm ci
+                        npx playwright test
+                    '''
                 }
             }
             post {
