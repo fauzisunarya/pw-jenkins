@@ -20,11 +20,7 @@ pipeline {
         }
         stage('Run Playwright Test') {
             steps{
-                bat '''
-                    npx playwright --version  // Memverifikasi versi Playwright
-                    npx playwright test --list  // Menampilkan daftar tes
-                    npx playwright test  // Menjalankan tes
-                '''
+                bat 'npx playwright test'
             }
             post {
                 always {
