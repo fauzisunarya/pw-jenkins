@@ -20,7 +20,9 @@ pipeline {
         }
         stage('Run Playwright Test') {
             steps{
+                bat 'npx playwright install'
                 bat 'npx playwright test'
+
             }
             post {
                 always {
