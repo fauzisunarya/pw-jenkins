@@ -6,6 +6,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'pw', variable: 'ENV_FILE')]) {
                     bat '''
                         copy /y "%ENV_FILE%" .env
+                        type .env
                         npm ci
                         npx playwright test
                     '''
