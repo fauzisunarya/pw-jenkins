@@ -1,21 +1,14 @@
 pipeline {
-   agent { 
-      docker { 
-         image 'mcr.microsoft.com/playwright:v1.50.1-noble'
-         rgs '-w //c/ProgramData/Jenkins/.jenkins/workspace/pw/' 
-      } 
-   }
     stages {
         stage('Run Playwright Test') {
             steps {
                 withCredentials([file(credentialsId: 'pw', variable: 'ENV_FILE')]) {
-                    sh '''
-                        chmod 644 $ENV_FILE
-                        cp $ENV_FILE .env
-                        echo $ENV_FILE
-                        npm ci
-                        npx playwright test
-                    '''
+                        bat 'chmod 644 $ENV_FILE'
+                        bat 'cp $ENV_FILE .env'
+                        bat 'echo $ENV_FILE'
+                        bat 'npm ci'
+                        bat 'npx playwright test'
+                    
                 }
             }
             post {
