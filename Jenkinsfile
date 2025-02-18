@@ -4,7 +4,6 @@ pipeline {
         stage('Run Playwright Test') {
             steps {
                 withCredentials([file(credentialsId: 'pw', variable: 'ENV_FILE')]) {
-                        bat 'chmod 644 $ENV_FILE'
                         bat 'cp $ENV_FILE .env'
                         bat 'echo $ENV_FILE'
                         bat 'npm ci'
